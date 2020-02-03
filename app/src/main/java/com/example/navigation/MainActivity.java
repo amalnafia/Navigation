@@ -1,25 +1,19 @@
 package com.example.navigation;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
+import androidx.navigation.NavDestination;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.navigation.Fragments.HomeFragment;
-import com.example.navigation.Fragments.OrdersFragment;
-import com.example.navigation.Fragments.ProfileFragment;
-import com.example.navigation.Fragments.ShopsFragment;
-import com.example.navigation.Fragments.SittingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,81 +22,58 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbarTop;
     private static final String TAG = "MainActivity";
     TextView textView;
+    private ImageView profileImageView;
+    MyInterface interface1;
+    ImageView btnChange;
+
+    public void setInterface1(MyInterface interface1) {
+        this.interface1 = interface1;
+    }
+
+    private static MainActivity mainActivity;
+
+    public static MainActivity getInstance(){
+        return mainActivity;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbarTop = findViewById(R.id.toolbarTop);
+        mainActivity = this;
+        toolbarTop = findViewById(R.id.main_bar);
         setSupportActionBar(toolbarTop);
-        //toolbarTop.setTitle("");
         MainActivity.this.setTitle("");
         textView = findViewById(R.id.title);
+        profileImageView = findViewById(R.id.drawer_image);
+        btnChange=findViewById(R.id.drawer_image);
+        btnChange.setOnClickListener(v -> {
+            if (interface1 != null){
+                interface1.buttonClicked();
+            }
+        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.mainNavigationFragment);
         NavigationUI.setupWithNavController(bottomNavigationView,
                 navHostFragment.getNavController());
-
-//
-//        setDefaultFragment();
-//
-//
-//        bottomNavigation = findViewById(R.id.bottom_navigation);
-//        bottomNavigation.setSelectedItemId(R.id.homeFragment);
-//
-//        bottomNavigation.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-//
-//    }
-//
-//    BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
-//            new BottomNavigationView.OnNavigationItemSelectedListener() {
-//
-//                @Override
-//                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                    switch (item.getItemId()) {
-//                        case R.id.shopsFragment:
-//                            textView.setText("Shops");
-//                            openFragment(new ShopsFragment());
-//                            Log.e(TAG, "onNavigationItemSelected: ");
-//                            return true;
-//                        case R.id.ordersFragment:
-//                            textView.setText("Orders");
-//                            openFragment(new OrdersFragment());
-//                            return true;
-//                        case R.id.homeFragment:
-//                            textView.setText("Home");
-//
-//                            openFragment(new HomeFragment());
-//
-//                            return true;
-//                        case R.id.sittingsFragment:
-//                            textView.setText("Sittings");
-//
-//                            openFragment(new SittingsFragment());
-//                            return true;
-//                        case R.id.profileFragment:
-//                            textView.setText("Profile");
-//
-//                            openFragment(new ProfileFragment());
-//                            return true;
-//                    }
-//                    return false;
-//                }
-//            };
-//
-//    public void openFragment(Fragment fragment) {
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.container, fragment);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
-//    }
-//    private void setDefaultFragment() {
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.container,new HomeFragment());
-//        transaction.commit();
-//
-//    }
+        navHostFragment.getNavController().addOnDestinationChangedListener(onDestinationChangedListener);
     }
+
+    private NavController.OnDestinationChangedListener onDestinationChangedListener = new NavController.OnDestinationChangedListener() {
+        @Override
+        public void onDestinationChanged(@NonNull NavController controller,
+                                         @NonNull NavDestination destination, @Nullable Bundle arguments) {
+            switch (destination.getId()) {
+                case R.id.profile_fragment:
+                    textView.setText("Profile");
+                    profileImageView.setVisibility(View.VISIBLE);
+                    break;
+                    default:
+                        profileImageView.setVisibility(View.GONE);
+            }
+        }
+    };
+
 }

@@ -3,31 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/home_fragment">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/home_fragment"
         android:name="com.example.navigation.Fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
     <fragment
-        android:id="@+id/ordersFragment"
+        android:id="@+id/orders_fragment"
         android:name="com.example.navigation.Fragments.OrdersFragment"
         android:label="fragment_orders"
         tools:layout="@layout/fragment_orders" />
     <fragment
-        android:id="@+id/profileFragment"
+        android:id="@+id/profile_fragment"
         android:name="com.example.navigation.Fragments.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+
+        <action android:id="@+id/action_profile_to_login_fragment"
+            app:destination="@id/loginFragment" />
+
+    </fragment>
     <fragment
-        android:id="@+id/shopsFragment"
+        android:id="@+id/shops_fragment"
         android:name="com.example.navigation.Fragments.ShopsFragment"
         android:label="fragment_shops"
         tools:layout="@layout/fragment_shops" />
     <fragment
-        android:id="@+id/sittingsFragment"
+        android:id="@+id/sittings_fragment"
         android:name="com.example.navigation.Fragments.SittingsFragment"
         android:label="fragment_sittings"
         tools:layout="@layout/fragment_sittings" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.navigation.Fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+    </fragment>
 </navigation>
