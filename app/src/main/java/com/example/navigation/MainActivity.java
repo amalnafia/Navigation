@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static MainActivity mainActivity;
 
-    public static MainActivity getInstance(){
+    public static MainActivity getInstance() {
         return mainActivity;
     }
 
@@ -46,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.setTitle("");
         textView = findViewById(R.id.title);
         profileImageView = findViewById(R.id.drawer_image);
-        btnChange=findViewById(R.id.drawer_image);
+        btnChange = findViewById(R.id.drawer_image);
         btnChange.setOnClickListener(v -> {
-            if (interface1 != null){
+            if (interface1 != null) {
                 interface1.buttonClicked();
             }
         });
@@ -70,10 +70,12 @@ public class MainActivity extends AppCompatActivity {
                     textView.setText("Profile");
                     profileImageView.setVisibility(View.VISIBLE);
                     break;
-                    default:
-                        profileImageView.setVisibility(View.GONE);
+                default:
+                    profileImageView.setVisibility(View.GONE);
             }
         }
     };
+
+
 
 }
