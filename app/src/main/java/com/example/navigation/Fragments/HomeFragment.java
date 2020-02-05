@@ -36,16 +36,14 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class HomeFragment extends Fragment {
     private HomeAdapter homeAdapter;
-
     @BindView(R.id.home_recycler_view)
     RecyclerView homeRecyclerView;
     List<CommonObject> commonObjectList = new ArrayList<>();
-    List<String> imageList= new ArrayList<>();
+    List<String> imageList = new ArrayList<>();
     private List<CategoryDataModelResponse> categoryList = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
     }
 
@@ -54,20 +52,20 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         homeRecyclerView.setLayoutManager(linearLayoutManager);
         homeAdapter = new HomeAdapter(getActivity());
         homeRecyclerView.setAdapter(homeAdapter);
         getCommonObject();
+
         return view;
     }
 
     private void getCommonObject() {
-                new CompositeDisposable().add(ApiClient.getClient().create(ApiInterface.class).getCategory(getHeaderRequest()).
-                        observeOn(AndroidSchedulers.mainThread())
-                        .subscribeOn(Schedulers.io())
-                        .subscribe(this::handleResponse, this::handleError));
+        new CompositeDisposable().add(ApiClient.getClient().create(ApiInterface.class).getCategory(getHeaderRequest()).
+                observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(this::handleResponse, this::handleError));
 
 
     }
@@ -90,7 +88,6 @@ public class HomeFragment extends Fragment {
                 requestImages();
             }
         }
-
     }
 
     private void requestImages() {
@@ -110,8 +107,5 @@ public class HomeFragment extends Fragment {
                 homeAdapter.setCommonObject(commonObjectList);
             }
         }
-
     }
-
-
 }
