@@ -62,7 +62,7 @@ public class ProfileFragment extends Fragment implements MyInterface {
     @OnClick(R.id.login_text_view)
     public void onViewClicked() {
 
-        Toast.makeText(getContext(), "test login ", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "login login ", Toast.LENGTH_SHORT).show();
     }
 
 

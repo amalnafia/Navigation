@@ -71,7 +71,7 @@ public class HomeFragment extends Fragment {
     }
 
     private HeaderRequest getHeaderRequest() {
-        return new HeaderRequest("test ", new HomeSliderDataRequest(-1, 1),
+        return new HeaderRequest("login ", new HomeSliderDataRequest(-1, 1),
                 "04525e53150cf718", "2",
                 "dQSMs86iUjk:APA91bHDG_MhtLyV47l1h8hd__IAGNRNgP_fjdDG_aGQIvf7tp7Osf_ut71shoZ6jRwHNsCEbHKY6Llkj8IY0FaFOCYTtcMkNErRpLfRo-LfGtbkMZyHL17BOWgY35M3S-eLKWVBKDLW"
                 , "Device model: SM-N950F ,Android version: 9 , Api level: 28", 120, "1");
